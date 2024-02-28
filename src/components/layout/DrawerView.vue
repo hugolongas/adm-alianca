@@ -1,5 +1,10 @@
 <template>
-  <v-navigation-drawer app>
+  <v-navigation-drawer     
+    app
+    id="appDrawer"
+    dark
+    width="200"
+    >
       <v-list
         nav
       >
@@ -27,14 +32,12 @@
 </template>
 <script>
 export default {
-  name: "DrawerView",
+  name: "drawerView",
   data() {
     return {
     }
   },
-  methods: {
-    logout() {
-    },
+  methods: {    
   },
   computed: {
   },

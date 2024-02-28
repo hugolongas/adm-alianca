@@ -2,25 +2,28 @@ import Vue from 'vue'
 
 const state = {
     user: null,
-    access_token: ""
+    access_token: "",
+    isloggedIn: false
 }
 
 const getters = {
     user: state => state.user,
-    userToken: state => state.access_token
+    userToken: state => state.access_token,
+    isLoggedIn: state => state.isLoggedIn,
 }
 const actions = {
     async login({ commit }, loginData) {
         return new Promise((resolve, reject) => {
-            Vue.axios.post("/login?email=" + loginData.email + "&password=" + loginData.password).then((response) => {
+            Vue.axios.post("/login", loginData)
+            .then((response) => {
                 if (response !== null) {
                     if (response.status == 200) {
                         let resp = response.data;
-                        if(resp.result){
+                        if (resp.result) {
                             commit('saveUser', resp.data)
                             resolve('success')
                         }
-                        else{
+                        else {
                             resolve(resp.data)
                         }
                     }
@@ -59,7 +62,7 @@ const actions = {
                     if (response.status == 200) {
                         let user = response.data;
                         commit('getuser', user);
-                        
+
                         resolve('success')
                     }
                 }
@@ -78,6 +81,7 @@ const mutations = {
     saveUser(state, user) {
         state.user = user.user;
         state.access_token = user.access_token;
+        state.isLoggedIn = true;
     },
     getuser(state, user) {
         state.user = user.data;
@@ -85,6 +89,7 @@ const mutations = {
     logout(state) {
         state.user = null;
         state.access_token = "";
+        state.isLoggedIn = false;
     }
 }
 
