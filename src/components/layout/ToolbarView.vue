@@ -5,7 +5,8 @@
     <v-spacer></v-spacer>
     {{ getUser }}
     <v-menu 
-      offset-y>
+      offset-y
+      >
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>

@@ -28,6 +28,14 @@ const routes = [
           authorize: true
         }
       },
+      {
+        path: '/activitats',
+        name: 'activities',
+        component: () => import('@/components/views/ActivitiesView.vue'),
+        meta: {
+          authorize: true
+        }
+      },
     ]
   },
 ]
