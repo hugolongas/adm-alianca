@@ -7,6 +7,7 @@ import users from './modules/users'
 import activities from './modules/activities'
 import categories from './modules/categories'
 
+import '@/plugins/notifications'
 
 const vuexPerist = new VuexPersistence({
     storage:window.sessionStorage,

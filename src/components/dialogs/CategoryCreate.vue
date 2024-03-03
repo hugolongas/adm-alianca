@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="dialog" persistent transition="dialog-bottom-transition" width="800">
-    <v-card :loading="loading">
-      <template v-slot:progress>
-        <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-      </template>
-      <v-card-title>Crear Categoria</v-card-title>
+    <v-card>
+      <v-toolbar color="" dark flat>
+        <v-toolbar-title>Crear Categoria</v-toolbar-title>        
+      </v-toolbar>
+      <v-progress-linear color="deep-purple" height="10" indeterminate v-if="loading"></v-progress-linear>
       <v-container grid-list-xl fluid>
         <v-layout flex-child wrap>
           <v-flex sm12>
@@ -47,14 +47,15 @@ export default {
       this.loading = true;
       this.$http.post("category/create",this.category)
         .then((response) => {
-          if (response.status == 201) {
+          if (response.status == 200) {
             this.loading = false;
+            this.$store.dispatch("syncCategories");
             this.close();
             this.showSuccess("Usuari Creat");
           } else {
-            var result = response.data;
-            if (!result.result)
-              this.showError(result.data);
+            let resp = response.data;
+            if (!resp.success)
+              this.showError(resp.result);
             this.loading = false;
           }
         });

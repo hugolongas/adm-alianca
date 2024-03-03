@@ -1,9 +1,28 @@
 <template>
   <v-container class="category">
-      <v-card class="md6">
-        <v-card-text>
-        </v-card-text>
-      </v-card>
+    <v-progress-linear color="deep-purple" height="10" indeterminate v-if="loading"></v-progress-linear>
+    <v-card>
+      <v-card-title>
+        Categories
+        <v-spacer></v-spacer>
+        <v-btn color="primary" fab @click="save()" small dark>
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
+        <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark>
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
+        <v-btn color="error" fab @click="remove()"  small dark>
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-form>
+            <v-text-field v-model="category.name"></v-text-field>
+          </v-form>
+        </v-container>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -13,30 +32,39 @@ export default {
   data() {
     return {
       loading: false,
-      category:[]
+      category: [],
+      originalCategory: ""
     };
   },
   created() {
     this.loading = true;
     var that = this
     var id = this.$route.params.id;
-    this.$http.get("category/get/"+id).then((response) => {
-      var resp = response.data;      
-      if(resp.success){
-      that.category = resp.result;
-      that.loading = false;
+    this.$http.get("category/get/" + id).then((response) => {
+      var resp = response.data;
+      if (resp.success) {
+        that.category = resp.result;
+        that.originalCategory = JSON.stringify(that.category);
+        that.loading = false;
       }
-      else{
+      else {
         //this.showError("hi ha hagut un error");
-        this.$router.push({name:"categories"});
+        this.$router.push({ name: "categories" });
       }
     });
   },
-  mounted() {},
+  mounted() { },
   computed: {
+    hasChanges() {
+      var result = this.originalCategory == JSON.stringify(this.category);
+      return result;
+    }
   },
   methods: {
-    delete() {
+    save() {
+
+    },
+    remove() {
       this.loading = true;
       var catId = this.category.id;
       this.$http.post("category/delete/" + catId).then((response) => {

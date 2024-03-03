@@ -3,15 +3,13 @@
     <v-card>
       <v-card-title>
         Categories
-      </v-card-title>
-      
-      <v-card-text>
-        <div>
-          <v-btn @click="create" small>
+        <v-spacer></v-spacer>
+        <v-btn @click="create" small>
             <v-icon> mdi-register-outline </v-icon>
             Crear Categoria
           </v-btn>
-        </div>
+      </v-card-title>      
+      <v-card-text>
         <v-container>
           <v-data-table
             :headers="headers"
@@ -60,7 +58,7 @@ export default {
           align: "start",
           value: "name",
         },
-        { text: "Url", value: "slug" },
+        { text: "Url", value: "lower_name" },
         { text: "Accions", value: "actions", sortable: false },
       ],
     };
