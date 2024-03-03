@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 
 import VuexPersistence from 'vuex-persist'
 
-import user from './modules/users'
+import users from './modules/users'
+import activities from './modules/activities'
+import categories from './modules/categories'
 
 
 const vuexPerist = new VuexPersistence({
@@ -15,7 +17,9 @@ Vue.use(Vuex)
 
 const vuex = new Vuex.Store({
     modules:{
-        user
+        users,
+        activities,
+        categories
     },
     plugins:[vuexPerist.plugin]
 });

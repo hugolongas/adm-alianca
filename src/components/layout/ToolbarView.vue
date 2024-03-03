@@ -1,27 +1,12 @@
 <template>
-  <v-app-bar app fixed color="teal" elevate-on-scroll>
-    <v-toolbar-title>Title</v-toolbar-title>
-
+  <v-app-bar app fixed elevation="2" style="background-color:white">
+    <v-spacer></v-spacer>
+    {{}}
     <v-spacer></v-spacer>
     {{ getUser }}
-    <v-menu 
-      offset-y
-      >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </template>
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>Rols</v-list-item-title>
-          </v-list-item>
-          <v-divider></v-divider>
-          <v-list-item @click="logout()">
-            <v-list-item-title>Deslogar-se</v-list-item-title>
-          </v-list-item>
-        </v-list>
-    </v-menu>
+     <v-btn icon @click="logout()">
+        <v-icon>mdi-location-exit</v-icon>
+      </v-btn>
   </v-app-bar>
 </template>
 <script>
@@ -33,7 +18,7 @@ export default {
     };
   },
   methods: {
-    logout() {      
+    logout() {
       this.$store.dispatch("logout").then((response) => {
         if (response == "success") {
           sessionStorage.clear();
@@ -46,12 +31,10 @@ export default {
   },
   computed: {
     getUser() {
-      
-      var user =  this.$store.getters.user;
-      if(user!=null) return user.name;
-      return '';
+      var user = this.$store.getters.user;
+      if (user != null) return user.name;
+      return "";
     },
-    
   },
 };
 </script>

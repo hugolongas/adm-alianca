@@ -1,17 +1,15 @@
 <template>
   <v-main>
-    <v-card class="elevation-6" :loading="loading">
+    <v-card class="elevation-6">
       <v-toolbar color="" dark flat>
-        <v-toolbar-title>Login</v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-toolbar-title>Login</v-toolbar-title>        
       </v-toolbar>
-      <template v-slot:progress>
-        <v-progress-linear
+      <v-progress-linear
           color="deep-purple"
           height="10"
           indeterminate
+          v-if="loading"
         ></v-progress-linear>
-      </template>
       <v-alert
         class="login-alert"
         :value="showAlert"
@@ -115,7 +113,7 @@ export default {
         const that = this;
         that.showAlert = false;
         that.loading = true;
-        
+
         this.$store.dispatch("login", that.form).then((response) => {
           if (response == "success") {
             that.loading = false;

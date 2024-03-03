@@ -2,8 +2,8 @@
   <div>
     <toolbarView />    
     <drawerView />       
-    <v-main style="min-height: 800px;background-color:#cccccc">      
-      <router-view style="background-color:#FFFFFF;margin: 5px;border-radius: 5px;"/>     
+    <v-main>      
+      <router-view />     
     </v-main>
   </div>
 </template>

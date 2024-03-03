@@ -35,8 +35,12 @@ myAxios.interceptors.response.use(
           this.$route.push({name:"home"});
         } else if (403 === error.response.status) {
             store.dispatch("logout");
+            
+          this.$route.push({name:"home"});
         } else if (404 === error.response.status) {
             store.dispatch("logout");
+            
+          this.$route.push({name:"home"});
         }
       } catch(e) {
         return Promise.resolve(error)

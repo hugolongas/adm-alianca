@@ -11,13 +11,43 @@
     <v-list dense nav>
       <v-list-item link :to="{ name: 'activities' }">
         <v-list-item-icon>
-          <v-icon>mdi-book-multiple-outline</v-icon>
+          <v-icon>mdi-drama-masks</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title>Activitats</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link :to="{ name: 'categories' }">
+        <v-list-item-icon>
+          <v-icon>mdi-dna</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Categories</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+  <v-divider></v-divider>
+  
+      <v-list-item link :to="{ name: 'users' }">
+        <v-list-item-icon>
+          <v-icon>mdi-deathly-hallows</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Usuaris</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item link :to="{ name: 'roles' }">
+        <v-list-item-icon>
+          <v-icon>mdi-virus-outline</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Rols d'Usuari</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      
     </v-list>
   </v-navigation-drawer>
 </template>

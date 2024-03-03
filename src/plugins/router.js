@@ -36,6 +36,38 @@ const routes = [
           authorize: true
         }
       },
+      {
+        path: '/categories',
+        name: 'categories',
+        component: () => import('@/components/views/CategoriesView.vue'),
+        meta: {
+          authorize: true
+        }
+      },
+      {
+        path: '/categories/:id',
+        name: 'categoryEdit',
+        component: () => import('@/components/views/CategoryEdit.vue'),
+        meta: {
+          authorize: true
+        }
+      },
+      {
+        path: '/rols',
+        name: 'roles',
+        component: () => import('@/components/views/RolesView.vue'),
+        meta: {
+          authorize: true
+        }
+      },
+      {
+        path: '/usuaris',
+        name: 'users',
+        component: () => import('@/components/views/UsersView.vue'),
+        meta: {
+          authorize: true
+        }
+      },
     ]
   },
 ]
