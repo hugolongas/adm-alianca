@@ -1,39 +1,43 @@
 <template>
   <v-container class="category">
-    <v-progress-linear
-      color="deep-purple"
-      height="10"
-      indeterminate
-      v-if="loading"
-    ></v-progress-linear>
+    <v-progress-linear color="deep-purple" height="10" indeterminate v-if="loading"></v-progress-linear>
     <v-card>
       <v-card-title>
         Categories
         <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          fab
-          :to="{ name: 'categories' }"
-          small
-          dark
-          class="mx-2"
-        >
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-        <v-btn
-          color="primary"
-          fab
-          @click="save()"
-          small
-          v-show="!hasChanges"
-          dark
-          class="mx-2"
-        >
-          <v-icon>mdi-pencil-outline</v-icon>
-        </v-btn>
-        <v-btn color="error" fab @click="remove()" small dark class="mx-2">
-          <v-icon>mdi-trash-can-outline</v-icon>
-        </v-btn>
+        <v-card>
+          <v-card-text>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="primary" fab :to="{ name: 'categories' }" small dark class="mx-2" v-bind="attrs"
+                  v-on="on">
+                  <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
+              </template>
+              <span>Tornar</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark class="mx-2" v-bind="attrs"
+                  v-on="on">
+                  <v-icon>mdi-pencil-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>Guardar</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+
+              <template v-slot:activator="{ on, attrs }">
+
+                <v-btn color="error" fab @click="remove()" small dark class="mx-2" v-bind="attrs" v-on="on">
+                  <v-icon>mdi-trash-can-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>Eliminar</span>
+            </v-tooltip>
+          </v-card-text>
+        </v-card>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -72,7 +76,7 @@ export default {
       }
     });
   },
-  mounted() {},
+  mounted() { },
   computed: {
     hasChanges() {
       var result = this.originalCategory == JSON.stringify(this.category);
@@ -80,14 +84,14 @@ export default {
     },
   },
   methods: {
-    save() {},
+    save() { },
     remove() {
       this.loading = true;
       var catId = this.category.id;
       this.$http.delete("category/delete/" + catId).then((response) => {
         console.log(response);
         if (response.data.result) {
-          this.showSuccess("Categoria Eliminada");          
+          this.showSuccess("Categoria Eliminada");
           this.$router.push({ name: "categories" });
         } else {
           let error = response.data.result;
@@ -99,6 +103,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .categories {
   padding-bottom: 100px;

@@ -4,10 +4,27 @@
       <v-card-title>
         Activitats
         <v-spacer></v-spacer>
-        <v-btn @click="create" small>
-            <v-icon> mdi-register-outline </v-icon>
-            Crear Activitat
-          </v-btn>
+        <v-card>
+          <v-card-text>            
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="green"
+                  fab
+                  @click="create"
+                  small
+                  dark
+                  class="mx-2"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
+              </template>
+              <span>Crear</span>
+            </v-tooltip>
+          </v-card-text>
+        </v-card>
       </v-card-title>      
       <v-card-text>
         <v-container>
@@ -19,12 +36,13 @@
             :loading="loading"
           >
           <template v-slot:[`item.published`]="{ item }">
-              <div class="actions">
-                <v-layout align-center justify-end>
-                  <v-btn v-if="item==false">
+              <div>
+                {{ item }}
+                <v-layout align-center >
+                  <v-btn v-if="item.published==false" icon>
                     <v-icon>mdi-toggle-switch-off</v-icon>
                   </v-btn>
-                  <v-btn v-if="item==true">
+                  <v-btn v-if="item.published==true" icon>
                     <v-icon>mdi-toggle-switch-on</v-icon>
                   </v-btn>
                 </v-layout>

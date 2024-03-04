@@ -66,9 +66,7 @@ export default {
   },
   computed: {
     items() {
-      var cat = this.$store.getters.categoriesForSelect;
-      console.log(cat);
-      return cat;
+      return this.$store.getters.categoriesForSelect;
     },
   },
   methods: {
@@ -80,18 +78,27 @@ export default {
     },
     create() {
       this.loading = true;
+      //var that = this;
       this.$http.post("activity/create", this.form).then((response) => {
         if (response.status == 200) {
+          var activity = response.data.result;
+          console.log(activity.id);
           this.loading = false;
-          this.$store.dispatch("syncCategories");
+          this.$store.dispatch("syncActivities");
           this.close();
-          this.showSuccess("Usuari Creat");
+          this.showSuccess("Activitat Creada");          
+        this.$router.push({ name: 'activityEdit', params: { id: activity.id } });
+
         } else {
           let resp = response.data;
           if (!resp.success) this.showError(resp.result);
           this.loading = false;
         }
-      });
+      })
+      .catch((error)=>{this.showError(error);
+         this.loading=false;
+         this.dialog = false;
+        });
     },
   },
 };
