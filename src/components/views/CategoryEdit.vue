@@ -5,13 +5,13 @@
       <v-card-title>
         Categories
         <v-spacer></v-spacer>
-        <v-btn color="primary" fab @click="save()" small dark>
+        <v-btn color="primary" fab :to="{ name: 'categories'}" small dark class="mx-2">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark class="mx-2">
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
-        <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark>
-          <v-icon>mdi-pencil-outline</v-icon>
-        </v-btn>
-        <v-btn color="error" fab @click="remove()"  small dark>
+        <v-btn color="error" fab @click="remove()"  small dark class="mx-2">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </v-card-title>
@@ -36,7 +36,7 @@ export default {
       originalCategory: ""
     };
   },
-  created() {
+  beforeCreate() {
     this.loading = true;
     var that = this
     var id = this.$route.params.id;
