@@ -4,11 +4,28 @@
       <v-card-title>
         Categories
         <v-spacer></v-spacer>
-        <v-btn @click="create" small>
-            <v-icon> mdi-register-outline </v-icon>
-            Crear Categoria
-          </v-btn>
-      </v-card-title>      
+        <v-card>
+          <v-card-text>            
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="green"
+                  fab
+                  @click="create"
+                  small
+                  dark
+                  class="mx-2"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
+              </template>
+              <span>Crear</span>
+            </v-tooltip>
+          </v-card-text>
+        </v-card>
+      </v-card-title>
       <v-card-text>
         <v-container>
           <v-data-table
@@ -63,7 +80,7 @@ export default {
       ],
     };
   },
-  created() {
+  beforeCreate() {
     this.loading = true;
     this.$store.dispatch("syncCategories").then(() => {
       this.loading = false;

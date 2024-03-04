@@ -16,7 +16,7 @@ const actions ={
                     if (response.status == 200) {
                         let resp = response.data;
                         if (resp.success) {
-                            commit('syncRoles', resp.result)
+                            commit('syncRoles', resp)
                             resolve('success')
                         }
                         else {
@@ -37,7 +37,7 @@ const actions ={
 
 const mutations = {
     syncRoles(state,roles){
-        state.roles = roles
+        state.roles = roles.result
     }
 }
 

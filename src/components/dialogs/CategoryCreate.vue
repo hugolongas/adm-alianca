@@ -51,7 +51,7 @@ export default {
             this.loading = false;
             this.$store.dispatch("syncCategories");
             this.close();
-            this.showSuccess("Usuari Creat");
+            this.showSuccess("Categoria Creada");
           } else {
             let resp = response.data;
             if (!resp.success)

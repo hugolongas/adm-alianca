@@ -2,18 +2,18 @@
   <v-container class="container category">
     <v-card>
       <v-card-title>
-        Categories
+        Activitats
         <v-spacer></v-spacer>
         <v-btn @click="create" small>
             <v-icon> mdi-register-outline </v-icon>
-            Crear Categoria
+            Crear Activitat
           </v-btn>
       </v-card-title>      
       <v-card-text>
         <v-container>
           <v-data-table
             :headers="headers"
-            :items="categories"
+            :items="activities"
             :items-per-page="5"
             class="elevation-1"
             :loading="loading"
@@ -50,16 +50,16 @@
           </v-data-table>
         </v-container>
 
-        <CategoryCreate ref="ccdg" />
+        <ActivityCreate ref="acdg" />
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import CategoryCreate from "@/components/dialogs/CategoryCreate";
+import ActivityCreate from "@/components/dialogs/ActivityCreate";
 export default {
-  components: { CategoryCreate },
+  components: { ActivityCreate },
   name: "ActivitiesView",
   data() {
     return {
@@ -80,19 +80,19 @@ export default {
   },
   created() {
     this.loading = true;
-    this.$store.dispatch("syncCategories").then(() => {
+    this.$store.dispatch("syncActivities").then(() => {
       this.loading = false;
     });
   },
   mounted() {},
   computed: {
-    categories() {
-      return this.$store.getters.categories;
+    activities() {
+      return this.$store.getters.activities;
     },
   },
   methods: {
     create() {
-      this.$refs.ccdg.show();
+      this.$refs.acdg.show();
     },
   },
 };

@@ -6,8 +6,22 @@ const state = {
 
 const getters = {
     categories: state => state.categories,
-
+    categoriesForSelect: state => state.categories
+        .map(function (c) {
+            return {
+                id: c.id,
+                name: c.name
+            }
+        })
+        .sort((a, b) => _alphanethicalOrder(a.name, b.name)),
 }
+
+const _alphanethicalOrder = function (a, b) {
+    if (a > b) return 1
+    else if (a < b) return -1
+    return 0
+}
+
 const actions = {
     async syncCategories({ commit }) {
         return new Promise((resolve, reject) => {
@@ -16,7 +30,7 @@ const actions = {
                     if (response.status == 200) {
                         let resp = response.data;
                         if (resp.success) {
-                            commit('syncCategories', resp.result)
+                            commit('syncCategories', resp)
                             resolve('success')
                         }
                         else {
@@ -37,7 +51,7 @@ const actions = {
 
 const mutations = {
     syncCategories(state, categories) {
-        state.categories = categories
+        state.categories = categories.result
     }
 }
 

@@ -16,7 +16,7 @@ const actions = {
                     if (response.status == 200) {
                         let resp = response.data;
                         if (resp.success) {
-                            commit('syncActivities', resp.result)
+                            commit('syncActivities', resp)
                             resolve('success')
                         }
                         else {

@@ -1,17 +1,37 @@
 <template>
   <v-container class="category">
-    <v-progress-linear color="deep-purple" height="10" indeterminate v-if="loading"></v-progress-linear>
+    <v-progress-linear
+      color="deep-purple"
+      height="10"
+      indeterminate
+      v-if="loading"
+    ></v-progress-linear>
     <v-card>
       <v-card-title>
         Categories
         <v-spacer></v-spacer>
-        <v-btn color="primary" fab :to="{ name: 'categories'}" small dark class="mx-2">
+        <v-btn
+          color="primary"
+          fab
+          :to="{ name: 'categories' }"
+          small
+          dark
+          class="mx-2"
+        >
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark class="mx-2">
+        <v-btn
+          color="primary"
+          fab
+          @click="save()"
+          small
+          v-show="!hasChanges"
+          dark
+          class="mx-2"
+        >
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
-        <v-btn color="error" fab @click="remove()"  small dark class="mx-2">
+        <v-btn color="error" fab @click="remove()" small dark class="mx-2">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </v-card-title>
@@ -33,12 +53,12 @@ export default {
     return {
       loading: false,
       category: [],
-      originalCategory: ""
+      originalCategory: "",
     };
   },
   beforeCreate() {
     this.loading = true;
-    var that = this
+    var that = this;
     var id = this.$route.params.id;
     this.$http.get("category/get/" + id).then((response) => {
       var resp = response.data;
@@ -46,37 +66,31 @@ export default {
         that.category = resp.result;
         that.originalCategory = JSON.stringify(that.category);
         that.loading = false;
-      }
-      else {
+      } else {
         //this.showError("hi ha hagut un error");
         this.$router.push({ name: "categories" });
       }
     });
   },
-  mounted() { },
+  mounted() {},
   computed: {
     hasChanges() {
       var result = this.originalCategory == JSON.stringify(this.category);
       return result;
-    }
+    },
   },
   methods: {
-    save() {
-
-    },
+    save() {},
     remove() {
       this.loading = true;
       var catId = this.category.id;
-      this.$http.post("category/delete/" + catId).then((response) => {
+      this.$http.delete("category/delete/" + catId).then((response) => {
+        console.log(response);
         if (response.data.result) {
-          this.$store.dispatch("syncCategories").then((response) => {
-            if (response.data) {
-              this.showSuccess("Categoria Eliminada");
-              this.loading = false;
-            }
-          });
+          this.showSuccess("Categoria Eliminada");          
+          this.$router.push({ name: "categories" });
         } else {
-          let error = response.data.data;
+          let error = response.data.result;
           this.loading = false;
           this.showError(error);
         }
