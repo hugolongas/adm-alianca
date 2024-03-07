@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer permanent app>
-    <v-list-item link :to="{ name: 'dashboard' }">
+    <v-list-item >
       <v-list-item-content>
         <v-img src="@/assets/logo.png" width="60px"></v-img>
       </v-list-item-content>
@@ -9,6 +9,16 @@
     <v-divider></v-divider>
 
     <v-list dense nav>
+      
+      <v-list-item link :to="{ name: 'dashboard' }">
+        <v-list-item-icon>
+          <v-icon>mdi-home-outline</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Dashboard</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link :to="{ name: 'activities' }">
         <v-list-item-icon>
           <v-icon>mdi-drama-masks</v-icon>
@@ -31,7 +41,7 @@
   
       <v-list-item link :to="{ name: 'users' }">
         <v-list-item-icon>
-          <v-icon>mdi-deathly-hallows</v-icon>
+          <v-icon>mdi-account-multiple</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -40,7 +50,7 @@
       </v-list-item>
       <v-list-item link :to="{ name: 'roles' }">
         <v-list-item-icon>
-          <v-icon>mdi-virus-outline</v-icon>
+          <v-icon>mdi-account-group-outline</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>

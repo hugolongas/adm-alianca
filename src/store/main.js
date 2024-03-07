@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+
 import VuexPersistence from 'vuex-persist'
 
 import users from './modules/users'
@@ -15,6 +17,7 @@ const vuexPerist = new VuexPersistence({
 })
 
 Vue.use(Vuex)
+Vue.use(CKEditor)
 
 const vuex = new Vuex.Store({
     modules:{

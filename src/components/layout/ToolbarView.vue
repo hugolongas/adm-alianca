@@ -1,7 +1,5 @@
 <template>
-  <v-app-bar app fixed elevation="2" style="background-color:white">
-    <v-spacer></v-spacer>
-    {{}}
+  <v-app-bar app fixed elevation="2" style="background-color:white">        
     <v-spacer></v-spacer>
     {{ getUser }}
      <v-btn icon @click="logout()">

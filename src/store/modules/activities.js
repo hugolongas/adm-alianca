@@ -11,7 +11,7 @@ const getters = {
 const actions = {
     async syncActivities({ commit }) {
         return new Promise((resolve, reject) => {
-            Vue.axios.get("/activity/all ").then((response) => {
+            Vue.axios.get("/activity/all").then((response) => {
                 if (response !== null) {
                     if (response.status == 200) {
                         let resp = response.data;

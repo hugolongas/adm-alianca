@@ -45,6 +45,14 @@ const routes = [
         }
       },
       {
+        path: '/activitats/:id/multimedia',
+        name: 'activityM',
+        component: () => import('@/components/views/ActivityEdit.vue'),
+        meta: {
+          authorize: true
+        }
+      },
+      {
         path: '/categories',
         name: 'categories',
         component: () => import('@/components/views/CategoriesView.vue'),
