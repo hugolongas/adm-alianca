@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import CKEditor from '@ckeditor/ckeditor5-vue2';
 
 import VuexPersistence from 'vuex-persist'
 
 import users from './modules/users'
+import roles from './modules/roles'
 import activities from './modules/activities'
 import categories from './modules/categories'
+import mediadefinitions from './modules/mediadefinitions'
 
 import '@/plugins/notifications'
 
@@ -17,13 +18,14 @@ const vuexPerist = new VuexPersistence({
 })
 
 Vue.use(Vuex)
-Vue.use(CKEditor)
 
 const vuex = new Vuex.Store({
     modules:{
         users,
+        roles,
         activities,
-        categories
+        categories,
+        mediadefinitions
     },
     plugins:[vuexPerist.plugin]
 });

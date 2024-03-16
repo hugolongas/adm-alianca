@@ -8,23 +8,23 @@
     ></v-progress-linear>
     <v-card>
       <v-card-title>
-        Activitat:
-        <v-spacer></v-spacer>
+        <h2>Editar Activitat
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
-              icon
-              :to="{ name: 'activityEdit', params: { id: activity.id } }"
+              icon        
+              :to="{ name: 'activityEdit', params: { id: activity.id } }"      
               small
               class="mx-2"
               v-bind="attrs"
               v-on="on"
+              disabled
             >
-              <v-icon>mdi-arrow-left</v-icon>
+              <v-icon>mdi-text-box-edit-outline</v-icon>
             </v-btn>
           </template>
-          <span>Editar Text</span>
+          <span>Editar Activitat</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
@@ -37,11 +37,12 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon>mdi-arrow-left</v-icon>
+              <v-icon>mdi-image-edit-outline</v-icon>
             </v-btn>
           </template>
-          <span>Editar Text</span>
+          <span>Afegir imatges</span>
         </v-tooltip>
+        </h2>
         <v-spacer></v-spacer>
         <v-card>
           <v-card-text>
@@ -297,9 +298,7 @@ export default {
       return this.formatDate(this.activity.date);
     },
     SlugName() {
-      console.log("SlugName", this.activity);
       if (this.activity == null || this.activity.length <= 0) return "";
-      console.log("SlugName ok", this.activity);
       return this.activity.category.lower_name + "/" + this.activity.url;
     },
   },

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import config from '@/config'
-import store from '../store/main'
+import store from '@/store'
 
 const myAxios = axios.create({
     baseURL:config.apiRootUrl+'/api'
@@ -34,10 +34,6 @@ myAxios.interceptors.response.use(
           store.dispatch("logout");
           this.$route.push({name:"home"});
         } else if (403 === error.response.status) {
-            store.dispatch("logout");
-            
-          this.$route.push({name:"home"});
-        } else if (404 === error.response.status) {
             store.dispatch("logout");
             
           this.$route.push({name:"home"});

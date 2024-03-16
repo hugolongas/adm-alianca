@@ -7,7 +7,9 @@ import App from './components/App.vue'
 import router from './plugins/router'
 import axios from './plugins/axios'
 
-import store from './store/main'
+import store from './store'
+
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 
 
 import { showMessagesMixin } from '@/mixins/showMessagesMixin'
@@ -16,6 +18,8 @@ Vue.mixin(showMessagesMixin)
 Vue.use(vuetify);
 Vue.config.productionTip = false
 Vue.use(store);
+
+Vue.use(CKEditor);
 
 new Vue({
   router,  

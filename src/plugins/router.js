@@ -1,89 +1,82 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store/main'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
+    path: '/clean',
     component: () => import('@/components/CleanView.vue'),
     children: [
       {
         path: '/login',
         name: 'login',
+        meta: { title: 'Login' },
         component: () => import('@/components/views/LoginView.vue'),        
       },
     ]
   },
   {
-    path: '',
+    path: '/',    
     component: () => import('@/components/BaseView.vue'),
+    meta: {
+      authorize: true
+    },
     children: [
       {
         path: '/dashboard',
         name: 'dashboard',
+        meta: { title: 'Dashboard' },
         component: () => import('@/components/views/DashboardView.vue'),
-        meta: {
-          authorize: true
-        }
+        
       },
       {
         path: '/activitats',
         name: 'activities',
+        meta: { title: 'Activitats' },
         component: () => import('@/components/views/ActivitiesView.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
         path: '/activitats/:id',
         name: 'activityEdit',
+        meta: { title: 'Activitat · Detall' },
         component: () => import('@/components/views/ActivityEdit.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
-        path: '/activitats/:id/multimedia',
+        path: '/activitats/media/:id',
         name: 'activityMultimedia',
+        meta: { title: 'Activitat · Adjunts' },
         component: () => import('@/components/views/activityMultimedia.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
         path: '/categories',
         name: 'categories',
+        meta: { title: 'Categories' },
         component: () => import('@/components/views/CategoriesView.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
         path: '/categories/:id',
         name: 'categoryEdit',
+        meta: { title: 'Categoria · Detall' },
         component: () => import('@/components/views/CategoryEdit.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
         path: '/rols',
         name: 'roles',
+        meta: { title: 'Rols' },
         component: () => import('@/components/views/RolesView.vue'),
-        meta: {
-          authorize: true
-        }
       },
       {
         path: '/usuaris',
         name: 'users',
+        
+        meta: { title: 'Usuaris' },
         component: () => import('@/components/views/UsersView.vue'),
-        meta: {
-          authorize: true
-        }
       },
+      {
+        path: '*',
+        redirect: '/'
+      }
     ]
   },
 ]
@@ -93,25 +86,37 @@ const router = new VueRouter({
   routes: routes
 })
 
-router.beforeResolve((to, from, next) => {
-  var user = store.getters.user
-  if (to.matched.some(record => record.meta.authorize)) {
-    if (user.length <= 0) {
-      router.push({ name: "login" });
-    }
-    else if (user != null) {
-      next()
-    }
-    else {
-      router.push({ name: "login" });
-    }
+let _user = {
+  isLogged: function () {
+    return router.app.$store.getters.isLoggedIn
+  },
+}
+
+let _setTitle = function(to) {
+  let title = "Ateneu l'Aliança" //'M6U'
+  let pageTitle = to.meta.title || ''
+  if (pageTitle != '') title = pageTitle + ' · ' + title
+  if (to.params.id) title = `#${to.params.id} · ${title}`
+
+  document.title = title
+}
+
+router.beforeResolve (
+  async (to, from, next) => {
+  
+  _setTitle(to)
+
+  if (!to.matched.some(record => record.meta.authorize)) {
+    return next()
   }
-  else {
-    if (user!=null) {
-      router.push({ name: "dashboard" });
-    }
-    next()
-  }
+
+  if(!_user.isLogged())
+  return next({
+    path: '/login',
+    query: { redirect: to.fullPath }
+  })
+
+    return next()
 })
 
 export default router

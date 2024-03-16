@@ -23,6 +23,14 @@ export default {
       navIcon: 2,
     };
   },
+  
+  beforeCreate() {   
+     this.$store.dispatch("syncActivities");
+     this.$store.dispatch("syncCategories");
+     console.log('syncMediaDefinitions');
+     this.$store.dispatch("syncMediaDefinitions");
+    
+  },
   methods: {},
   computed: {},
 };
