@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 
 import users from './modules/users'
+import covers from './modules/covers'
 import roles from './modules/roles'
 import activities from './modules/activities'
 import categories from './modules/categories'
@@ -22,6 +23,7 @@ Vue.use(Vuex)
 const vuex = new Vuex.Store({
     modules:{
         users,
+        covers,
         roles,
         activities,
         categories,

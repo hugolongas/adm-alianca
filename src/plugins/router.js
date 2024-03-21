@@ -31,6 +31,20 @@ const routes = [
         
       },
       {
+        path: '/portada',
+        name: 'cover',
+        meta: { title: 'Portada' },
+        component: () => import('@/components/views/CoverView.vue'),
+        
+      },
+      {
+        path: '/portada/:id',
+        name: 'coverEdit',
+        meta: { title: 'Portada Editar' },
+        component: () => import('@/components/views/CoverEdit.vue'),
+        
+      },
+      {
         path: '/activitats',
         name: 'activities',
         meta: { title: 'Activitats' },

@@ -19,6 +19,15 @@
           <v-list-item-title>Dashboard</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+            <v-list-item link :to="{ name: 'cover' }">
+        <v-list-item-icon>
+          <v-icon>mdi-home-outline</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Portada</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link :to="{ name: 'activities' }">
         <v-list-item-icon>
           <v-icon>mdi-drama-masks</v-icon>

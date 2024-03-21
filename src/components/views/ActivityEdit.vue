@@ -8,40 +8,44 @@
     ></v-progress-linear>
     <v-card>
       <v-card-title>
-        <h2>Editar Activitat
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              icon        
-              :to="{ name: 'activityEdit', params: { id: activity.id } }"      
-              small
-              class="mx-2"
-              v-bind="attrs"
-              v-on="on"
-              disabled
-            >
-              <v-icon>mdi-text-box-edit-outline</v-icon>
-            </v-btn>
-          </template>
-          <span>Editar Activitat</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              icon
-              :to="{ name: 'activityMultimedia', params: { id: activity.id } }"
-              small
-              class="mx-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-image-edit-outline</v-icon>
-            </v-btn>
-          </template>
-          <span>Afegir imatges</span>
-        </v-tooltip>
+        <h2>
+          Editar Activitat
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="primary"
+                icon
+                :to="{ name: 'activityEdit', params: { id: activity.id } }"
+                small
+                class="mx-2"
+                v-bind="attrs"
+                v-on="on"
+                disabled
+              >
+                <v-icon>mdi-text-box-edit-outline</v-icon>
+              </v-btn>
+            </template>
+            <span>Editar Activitat</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="primary"
+                icon
+                :to="{
+                  name: 'activityMultimedia',
+                  params: { id: activity.id },
+                }"
+                small
+                class="mx-2"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-image-edit-outline</v-icon>
+              </v-btn>
+            </template>
+            <span>Afegir imatges</span>
+          </v-tooltip>
         </h2>
         <v-spacer></v-spacer>
         <v-card>
@@ -66,7 +70,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="warning"
                   fab
                   @click="save()"
                   small
@@ -76,7 +80,7 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon>mdi-pencil-outline</v-icon>
+                  <v-icon>mdi-content-save</v-icon>
                 </v-btn>
               </template>
               <span>Guardar</span>
@@ -185,34 +189,12 @@
                     </v-menu>
                   </v-col>
                   <v-col cols="6" sm="4">
-                    <v-menu
-                      ref="menuTime"
-                      v-model="showTime"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="activity.time"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="activity.time"
-                          label="Hora activitat"
-                          prepend-icon="mdi-clock-time-four-outline"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-time-picker
-                        v-if="showTime"
-                        v-model="activity.time"
-                        full-width
-                        @click:minute="$refs.menuTime.save(activity.time)"
-                      ></v-time-picker>
-                    </v-menu>
+                    <v-text-field
+                      v-model="activity.time"
+                      label="Hora activitat"
+                      prepend-icon="mdi-clock-time-four-outline"
+                      type="time"
+                    ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
