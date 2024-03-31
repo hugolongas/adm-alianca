@@ -7,7 +7,7 @@
   >
     <v-card>
       <v-toolbar color="" dark flat>
-        <v-toolbar-title>Crear Categoria</v-toolbar-title>
+        <v-toolbar-title>Crear Tipus de soci</v-toolbar-title>
       </v-toolbar>
       <v-progress-linear
         color="deep-purple"
@@ -20,7 +20,7 @@
           <v-flex sm12>
             <v-form>
               <v-text-field
-                v-model="category.name"
+                v-model="parner.name"
                 class="form-input"
                 type="text"
                 id="name"
@@ -43,13 +43,13 @@
 
 <script>
 export default {
-  name: "categoryCreate",
+  name: "parnersCreate",
 
   data() {
     return {
       dialog: false,
       loading: false,
-      category: {
+      parner: {
         name: "",
       },
     };
@@ -59,17 +59,17 @@ export default {
       this.dialog = true;
     },
     close() {
-      this.category.name= ""
+      this.parner.name= ""
       this.dialog = false;
     },
     create() {
       this.loading = true;
-      this.$http.post("category/create", this.category).then((response) => {
+      this.$http.post("parners/create", this.parner).then((response) => {
         if (response.status == 200) {
           this.loading = false;
-          this.$store.dispatch("syncCategories");
+          this.$store.dispatch("syncParners");
           this.close();
-          this.showSuccess("Categoria Creada");
+          this.showSuccess("Tipus de socis creat");
         } else {
           let resp = response.data;
           if (!resp.success) this.showError(resp.result);

@@ -10,6 +10,7 @@ import roles from './modules/roles'
 import activities from './modules/activities'
 import categories from './modules/categories'
 import mediadefinitions from './modules/mediadefinitions'
+import parners from './modules/parners'
 
 import '@/plugins/notifications'
 
@@ -27,6 +28,7 @@ const vuex = new Vuex.Store({
         roles,
         activities,
         categories,
+        parners,
         mediadefinitions
     },
     plugins:[vuexPerist.plugin]

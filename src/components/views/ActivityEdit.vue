@@ -70,7 +70,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="warning"
+                  color="green"
                   fab
                   @click="save()"
                   small
@@ -281,6 +281,7 @@ export default {
     },
     SlugName() {
       if (this.activity == null || this.activity.length <= 0) return "";
+      console.log(this.activity)
       return this.activity.category.lower_name + "/" + this.activity.url;
     },
   },

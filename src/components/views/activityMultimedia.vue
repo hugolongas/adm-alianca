@@ -82,7 +82,7 @@
               <mediaLoader
                 :attachments="medias[md.type]"
                 :mediaDefinition="md"
-                :activityId="activityId"
+                :id="activityId"
               >
               </mediaLoader>
             </v-col>
@@ -111,7 +111,7 @@ export default {
   },
   computed: {
     mediaDefinitions() {
-      return this.$store.getters.mediaDefinitions;
+      return this.$store.getters.mediaDefinitionsForActivities;
     },
   },
   methods: {
@@ -119,12 +119,12 @@ export default {
       this.loading = true;
       var that = this;
       this.activityId = this.$route.params.id;
-      console.log(this.activityId);
       this.$http
         .get("activity/attachments/" + this.activityId)
         .then((response) => {
           var resp = response.data;
           if (resp.success) {
+            console.log("attachments:", resp.result);
             that.medias = resp.result;
             that.loading = false;
           }

@@ -32,7 +32,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="green"
                   fab
                   @click="save()"
                   small
@@ -42,7 +42,7 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon>mdi-pencil-outline</v-icon>
+                  <v-icon>mdi-content-save</v-icon>
                 </v-btn>
               </template>
               <span>Guardar</span>
@@ -69,19 +69,38 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-select
-            v-model="cover.cover_type"
-            label="Select"
-            :items="coverTypes"
-            v-on:change="setCoverType"
-          ></v-select>
-          <v-form v-if="cover.cover_type == 'Cover'">
-            <v-text-field v-model="cover.title"></v-text-field>
-          </v-form>
-          <v-form v-if="cover.cover_type == 'Activity'">
-            <v-text-field v-model="cover.title"></v-text-field>
-            <v-img :src="mediaUrl" class="activity-img"></v-img>
-          </v-form>
+          <v-row>
+            <v-col cols="12" md="8">
+              <v-card>
+                <v-card-text>
+                  <v-text-field
+                    v-model="cover.title"
+                    label="Títol de la portada"
+                    placeholder="Títol de la portada"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="cover.url"
+                    label="Enllaç de la portada"
+                    placeholder="Enllaç de la portada"
+                  ></v-text-field>
+                </v-card-text>
+              </v-card>
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="4"
+              v-for="(md, i) in mediaDefinitions"
+              :key="i"
+            >
+              <mediaLoader
+                :attachments="medias[md.type]"
+                :mediaDefinition="md"
+                :id="cover.id"
+              >
+              </mediaLoader>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card-text>
     </v-card>
@@ -89,16 +108,16 @@
 </template>
 
 <script>
-
-import config from "@/config";
+import MediaLoader from "../parts/MediaLoader.vue";
 export default {
+  components: { MediaLoader },
   name: "CoverEdit",
   data() {
     return {
       loading: false,
       cover: [],
-      coverTypes: ["Activity", "Cover"],
       originalCover: "",
+      medias: [],
     };
   },
   beforeCreate() {
@@ -110,29 +129,46 @@ export default {
       if (resp.success) {
         that.cover = resp.result;
         that.originalCover = JSON.stringify(that.cover);
-        that.loading = false;
+        that.$http.get("covers/attachments/" + id).then((response) => {
+          var resp = response.data;
+          if (resp.success) {
+            console.log("attachments:", resp.result);
+            that.medias = resp.result;
+            that.loading = false;
+          }
+        });
       } else {
         this.$router.push({ name: "covers" });
       }
     });
   },
   mounted() {},
+
   computed: {
+    mediaDefinitions() {
+      return this.$store.getters.mediaDefinitionsForCover;
+    },
     hasChanges() {
       var result = this.originalCover == JSON.stringify(this.cover);
       return result;
     },
-    
-    mediaUrl() {
-      return config.webUrl + "storage/" + this.localAttachment.url;
-    },
   },
   methods: {
-    setCoverType(e) {
-      console.log(e);
+    save() {
+      this.loading = true;
+      var that = this;
+      this.$http.put("covers/update", this.cover).then((response) => {
+        var resp = response.data;
+        if (resp.success) {
+          console.log(resp.result);
+          that.cover = resp.result;
+          that.originalCover = JSON.stringify(that.cover);
+          that.loading = false;
+        } else {
+          this.showError("hi ha hagut un error");
+        }
+      });
     },
-    save() {},
-    addAttachment() {},
     remove() {
       this.loading = true;
       var coverId = this.cover.id;

@@ -7,7 +7,7 @@
   >
     <v-card>
       <v-toolbar color="" dark flat>
-        <v-toolbar-title>Crear Categoria</v-toolbar-title>
+        <v-toolbar-title>Crear Activitat</v-toolbar-title>
       </v-toolbar>
       <v-progress-linear
         color="deep-purple"

@@ -134,7 +134,7 @@ export default {
         return null;
       },
     },
-    activityId: {
+    id: {
       type: [String, Number],
       default: null,
     },
@@ -166,7 +166,8 @@ export default {
     };
   },
   watch: {
-    attachments() {
+    attachments() {      
+      console.log(this.attachments);
       this.localAttachment = this.attachments;
     },
 
@@ -313,12 +314,12 @@ export default {
       this.loading = true;
 
       let payload = {
-        activityId: this.activityId,
+        id: this.id,
         image: this.currentMedia,
         mediaDefinition: this.mediaDefinition,
         cropInfo: this.coordinates,
       };
-
+      console.log("payload: ", payload)
       this.$http
         .post("media/addatachment", payload)
         .then((response) => {

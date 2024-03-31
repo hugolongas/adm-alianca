@@ -82,10 +82,21 @@ const routes = [
       },
       {
         path: '/usuaris',
-        name: 'users',
-        
+        name: 'users',        
         meta: { title: 'Usuaris' },
         component: () => import('@/components/views/UsersView.vue'),
+      },
+      {
+        path: '/tipus-socis',
+        name: 'parners',        
+        meta: { title: 'Tipus de socis' },
+        component: () => import('@/components/views/ParnersView.vue'),
+      },
+      {
+        path: '/tipus-socis/:id',
+        name: 'parnersEdit',        
+        meta: { title: 'Tipus de socis' },
+        component: () => import('@/components/views/ParnersEdit.vue'),
       },
       {
         path: '*',

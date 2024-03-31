@@ -18,7 +18,6 @@ Vue.mixin(showMessagesMixin)
 Vue.use(vuetify);
 Vue.config.productionTip = false
 Vue.use(store);
-
 Vue.use(CKEditor);
 
 new Vue({

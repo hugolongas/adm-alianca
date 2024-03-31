@@ -1,8 +1,8 @@
 <template>
-  <v-container class="container activities">
+  <v-container class="container parners">
     <v-card>
       <v-card-title>
-        Activitats
+        Tipus de Socis
         <v-spacer></v-spacer>
         <v-card>
           <v-card-text>
@@ -35,18 +35,6 @@
             class="elevation-1"
             :loading="loading"
           >
-            <template v-slot:[`item.published`]="{ item }">
-              <div>
-                <v-layout align-center>
-                  <v-btn v-if="!item.published" icon color="red">
-                    <v-icon>mdi-toggle-switch-off</v-icon>
-                  </v-btn>
-                  <v-btn v-if="item.published" icon color="green">
-                    <v-icon>mdi-toggle-switch</v-icon>
-                  </v-btn>
-                </v-layout>
-              </div>
-            </template>
             <template v-slot:[`item.actions`]="{ item }">
               <div class="actions">
                 <v-layout align-center>
@@ -54,7 +42,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         icon
-                        :to="{ name: 'activityEdit', params: { id: item.id } }"
+                        :to="{ name: 'parnerEdit', params: { id: item.id } }"
                         small
                         color="blue"
                         v-bind="attrs"
@@ -70,31 +58,27 @@
             </template>
           </v-data-table>
         </v-container>
-
-        <ActivityCreate ref="acdg" />
+        <parnersCreate ref="pcdg" />
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import ActivityCreate from "@/components/dialogs/ActivityCreate";
+import parnersCreate from "@/components/dialogs/ParnersCreate";
 export default {
-  components: { ActivityCreate },
-  name: "ActivitiesView",
+  components: { parnersCreate },
+  name: "ParnersView",
   data() {
     return {
       loading: false,
       headers: [
         {
-          text: "Actividad",
+          text: "Soci",
           align: "start",
-          value: "title",
-        },
-        { text: "Data Activitat", value: "date" },
-        { text: "Hora Activitat", value: "time" },
-        { text: "Url", value: "url" },
-        { text: "Publicat", value: "published" },
+          value: "name",
+        },        
+        { text: "Preu", value: "price" },        
         { text: "Accions", value: "actions", sortable: false },
       ],
     };
@@ -107,22 +91,22 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.getters.activities;
+      return this.$store.getters.parners;
     },
   },
   methods: {
     load() {
-      this.$store.dispatch("syncActivities");
+      this.$store.dispatch("syncParners");
       this.loading = false;
     },
     create() {
-      this.$refs.acdg.show();
+      this.$refs.pcdg.show();
     },
   },
 };
 </script>
 <style scoped>
-.activities {
+.parners {
   padding-bottom: 100px;
 }
 </style>

@@ -1,28 +1,22 @@
 import Vue from 'vue'
 
 const state = {
-    mediaDefinitions: []
+    parners: []
 }
 
 const getters = {
-    mediaDefinitions: state => state.mediaDefinitions,    
-    mediaDefinitionsForActivities: state =>state.mediaDefinitions.filter(md => md.used=='activity'),
-    mediaDefinitionsForCover: state =>state.mediaDefinitions.filter(md => md.used=='cover')
+    parners: state => state.categories,
 }
 
-
 const actions = {
-    async syncMediaDefinitions({ commit }) {
+    async syncParners({ commit }) {
         return new Promise((resolve, reject) => {
-            
-            console.log('syncMediaDefinitions');
-            Vue.axios.get("/mediadefinitions/all").then((response) => {
+            Vue.axios.get("/parners/all ").then((response) => {
                 if (response !== null) {
                     if (response.status == 200) {
                         let resp = response.data;
                         if (resp.success) {
-                            console.log('syncMediaDefinitions result', resp);
-                            commit('syncMediaDefinitions', resp)
+                            commit('syncParners', resp)
                             resolve('success')
                         }
                         else {
@@ -42,8 +36,8 @@ const actions = {
 }
 
 const mutations = {
-    syncMediaDefinitions(state, mediaDefinitions) {
-        state.mediaDefinitions = mediaDefinitions.result
+    syncParners(state, parners) {
+        state.parners = parners.result
     }
 }
 

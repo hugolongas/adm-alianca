@@ -26,9 +26,9 @@ export default {
   
   beforeCreate() {   
      this.$store.dispatch("syncActivities");
-     this.$store.dispatch("syncCategories");
-     console.log('syncMediaDefinitions');
+     this.$store.dispatch("syncCategories");     
      this.$store.dispatch("syncMediaDefinitions");
+     this.$store.dispatch("syncParners");
     
   },
   methods: {},

@@ -33,26 +33,13 @@
         </v-card>
       </v-card-title>
       <v-card-text>
-        <v-row>
-            <v-col
-            cols="8"
-            >
-            </v-col>
-            <v-col
-            cols="4"
-            >            
-            </v-col>
-        <v-row dense>
-          <v-col v-for="(item, i) in items" :key="i" :cols="setColSize(i)">
-            <v-card>
-              <v-toolbar color="primary"
-                >{{ item.title }}
-                <v-spacer></v-spacer>
-              </v-toolbar>              
-              <v-card-text>
-              </v-card-text>
-            </v-card>
-          </v-col>
+        <v-row dense align="center" justify="center">
+          <v-col cols="6"
+            ><v-row dense>
+              <v-col v-for="(item, i) in items" :key="i" :cols="setColSize(i)">
+                <CoverItem :cover="item" />
+              </v-col> </v-row
+          ></v-col>
         </v-row>
       </v-card-text>
     </v-card>
@@ -60,9 +47,10 @@
 </template>
   
 <script>
+import CoverItem from "../parts/CoverItem.vue";
 export default {
   name: "CoverView",
-  components: {},
+  components: { CoverItem },
   data() {
     return {
       loading: false,
@@ -81,9 +69,7 @@ export default {
   },
   methods: {
     load() {
-      if (this.items == null || this.items.length == 0) {
-        this.$store.dispatch("syncCovers");
-      }
+      this.$store.dispatch("syncCovers");
       this.loading = false;
     },
 
