@@ -42,7 +42,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         icon
-                        :to="{ name: 'parnerEdit', params: { id: item.id } }"
+                        :to="{ name: 'parnersEdit', params: { id: item.id } }"
                         small
                         color="blue"
                         v-bind="attrs"
@@ -78,7 +78,8 @@ export default {
           align: "start",
           value: "name",
         },        
-        { text: "Preu", value: "price" },        
+        { text: "Preu", value: "price" },
+        { text: "Informació", value: "info" },
         { text: "Accions", value: "actions", sortable: false },
       ],
     };

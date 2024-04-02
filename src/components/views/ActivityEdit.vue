@@ -319,6 +319,7 @@ export default {
           that.activity = resp.result;
           that.originalActivity = JSON.stringify(that.activity);
           that.loading = false;
+          this.showSuccess("Activitat modificada");
         } else {
           this.showError("hi ha hagut un error");
         }

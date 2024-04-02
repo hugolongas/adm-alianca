@@ -97,10 +97,6 @@ const routes = [
         name: 'parnersEdit',        
         meta: { title: 'Tipus de socis' },
         component: () => import('@/components/views/ParnersEdit.vue'),
-      },
-      {
-        path: '*',
-        redirect: '/'
       }
     ]
   },
@@ -118,7 +114,7 @@ let _user = {
 }
 
 let _setTitle = function(to) {
-  let title = "Ateneu l'Aliança" //'M6U'
+  let title = "Ateneu l'Aliança"
   let pageTitle = to.meta.title || ''
   if (pageTitle != '') title = pageTitle + ' · ' + title
   if (to.params.id) title = `#${to.params.id} · ${title}`

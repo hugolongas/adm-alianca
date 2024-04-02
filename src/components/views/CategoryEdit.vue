@@ -17,11 +17,10 @@
               <span>Tornar</span>
             </v-tooltip>
             <v-tooltip bottom>
-
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="primary" fab @click="save()" small v-show="!hasChanges" dark class="mx-2" v-bind="attrs"
+                <v-btn color="green" fab @click="save()" small v-show="!hasChanges" dark class="mx-2" v-bind="attrs"
                   v-on="on">
-                  <v-icon>mdi-pencil-outline</v-icon>
+                  <v-icon>mdi-content-save</v-icon>
                 </v-btn>
               </template>
               <span>Guardar</span>
@@ -84,7 +83,22 @@ export default {
     },
   },
   methods: {
-    save() { },
+    save() {       
+      this.loading = true;
+      var that = this;
+      this.$http.put("category/update", this.category).then((response) => {
+        var resp = response.data;
+        if (resp.success) {
+          console.log(resp.result);
+          that.category = resp.result;
+          that.originalCategory = JSON.stringify(that.category);
+          that.loading = false;
+          this.showSuccess("Categoria Modificada");
+        } else {
+          this.showError("hi ha hagut un error");
+        }
+      });
+    },
     remove() {
       this.loading = true;
       var catId = this.category.id;

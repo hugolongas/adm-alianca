@@ -5,7 +5,7 @@ const state = {
 }
 
 const getters = {
-    parners: state => state.categories,
+    parners: state => state.parners,
 }
 
 const actions = {
