@@ -81,10 +81,22 @@ const routes = [
         component: () => import('@/components/views/RolesView.vue'),
       },
       {
+        path: '/rols/:id',
+        name: 'roleEdit',
+        meta: { title: 'Rol · Detall' },
+        component: () => import('@/components/views/RolesEdit.vue'),
+      },
+      
+      {
         path: '/usuaris',
         name: 'users',        
         meta: { title: 'Usuaris' },
         component: () => import('@/components/views/UsersView.vue'),
+      },      {
+        path: '/usuaris/:id',
+        name: 'userEdit',        
+        meta: { title: 'Usuari · Editar' },
+        component: () => import('@/components/views/UserEdit.vue'),
       },
       {
         path: '/tipus-socis',
@@ -109,6 +121,7 @@ const router = new VueRouter({
 
 let _user = {
   isLogged: function () {
+    console.log('_user.isLogged', router.app.$store.getters.isLoggedIn)
     return router.app.$store.getters.isLoggedIn
   },
 }

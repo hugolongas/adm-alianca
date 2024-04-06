@@ -7,7 +7,7 @@
   >
     <v-card>
       <v-toolbar color="" dark flat>
-        <v-toolbar-title>Crear Tipus de soci</v-toolbar-title>
+        <v-toolbar-title>Crear Rol</v-toolbar-title>
       </v-toolbar>
       <v-progress-linear
         color="deep-purple"
@@ -20,12 +20,12 @@
           <v-flex sm12>
             <v-form>
               <v-text-field
-                v-model="parner.name"
+                v-model="role.name"
                 class="form-input"
                 type="text"
                 id="name"
                 required
-                placeholder="Nom Complert"
+                placeholder="Rol"
               ></v-text-field>
             </v-form>
           </v-flex>
@@ -43,13 +43,13 @@
 
 <script>
 export default {
-  name: "parnersCreate",
+  name: "RoleCreate",
 
   data() {
     return {
       dialog: false,
       loading: false,
-      parner: {
+      role: {
         name: "",
       },
     };
@@ -59,24 +59,17 @@ export default {
       this.dialog = true;
     },
     close() {
-      this.parner.name = "";
+      this.role.name= ""
       this.dialog = false;
     },
     create() {
       this.loading = true;
-      this.$http.post("parners/create", this.parner).then((response) => {
+      this.$http.post("roles/create", this.role).then((response) => {
         if (response.status == 200) {
-          var parner = response.data.result;
-          console.log(parner.id);
-
           this.loading = false;
-          this.$store.dispatch("syncParners");
+          this.$store.dispatch("syncRoles");
           this.close();
-          this.showSuccess("Tipus de socis creat");
-          this.$router.push({
-            name: "parnersEdit",
-            params: { id: parner.id },
-          });
+          this.showSuccess("Rol Creat");
         } else {
           let resp = response.data;
           if (!resp.success) this.showError(resp.result);

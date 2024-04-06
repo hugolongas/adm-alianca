@@ -35,7 +35,7 @@
             class="elevation-1"
             :loading="loading"
           >
-            <template v-slot:[`item.actions`]="{ item }">
+          <template v-slot:[`item.actions`]="{ item }">
               <div class="actions">
                 <v-layout align-center>
                   <v-tooltip bottom>
@@ -55,6 +55,9 @@
                   </v-tooltip>
                 </v-layout>
               </div>
+            </template>
+            <template v-slot:[`item.info`]="{ item }">
+              <div v-html='item.info' />
             </template>
           </v-data-table>
         </v-container>

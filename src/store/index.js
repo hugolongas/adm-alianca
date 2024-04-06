@@ -15,7 +15,7 @@ import parners from './modules/parners'
 import '@/plugins/notifications'
 
 const vuexPerist = new VuexPersistence({
-    storage:window.sessionStorage,
+    storage:window.localStorage,
     key:"__alianca"
 })
 

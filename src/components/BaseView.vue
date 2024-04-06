@@ -29,6 +29,7 @@ export default {
      this.$store.dispatch("syncCategories");     
      this.$store.dispatch("syncMediaDefinitions");
      this.$store.dispatch("syncParners");
+     this.$store.dispatch("syncRoles");
     
   },
   methods: {},
